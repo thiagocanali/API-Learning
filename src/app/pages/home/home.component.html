@@ -1,0 +1,44 @@
+
+
+  <!-- As a heading -->
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">ㅤ</span>
+  </nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <h4>Digite o nome da cidade:</h4>
+            <div class="input-group mb-3">
+                <input class="form-control" [(ngModel)]="resposta" type="text">
+                <div class="input-group-append">
+                    <span class="input-group" id="basic-addon2">
+                        <button class="btn btn-info" (click)="getWeather()">Pesquisar</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3"><hr></div>
+    <div class="row" *ngIf="dados.results">
+        <p>Hoje:</p>
+        <div class="col-12">Temperatura: {{ dados.results.temp }}</div>
+        <div class="col-12">Umidade: {{ dados.results.humidity }}</div>
+        <div class="col-12">Horário: {{ dados.results.time }}</div>
+    </div>
+    <div class="col-3"><hr></div>
+    <ng-container *ngIf="dados.results">
+        <div class="col-3">
+            <select id="select" class="form-select" [(ngModel)]="respostaSelect" (change)="filtraData()">
+                <option >Todos</option>
+                <option *ngFor="let item of dados.results.forecast">{{item.date}}</option>
+            </select>
+        </div>
+        <div class="row" *ngFor="let item of days">
+            <div class="col">
+                {{item.date}} ( {{item.weekday}} ) - {{item.description}}, com Máxima de: {{item.max}} e com Mínima de: {{item.min}} 
+            </div>
+        </div>
+    </ng-container>
+</div>
+
